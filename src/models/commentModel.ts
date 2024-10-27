@@ -6,9 +6,9 @@ export interface CommentModel {
   body: string;
   htmlUrl: string;
   authorAssociation: string;
-  createdAt: string;
-  updatedAt: string;
-  user: UserModel;
+  createdAt?: string;
+  updatedAt?: string;
+  user?: UserModel;
 }
 
 export const createCommentModel = (raw: Comment): CommentModel => {
