@@ -18,6 +18,6 @@
       "jsxImportSource": "@emotion/react",
       "types": ["unplugin-icons/types/react"]
     },
-    "include": ["src", "types"],
+    "include": ["src", "src/types"],
     "references": [{ "path": "./tsconfig.node.json" }]
   }
