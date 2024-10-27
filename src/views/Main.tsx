@@ -1,12 +1,12 @@
 import mdDark from 'github-markdown-css/github-markdown-dark.css?raw';
 import mdLight from 'github-markdown-css/github-markdown-light.css?raw';
+import { changeLanguage } from 'i18next';
 import prismLight from 'prism-themes/themes/prism-vs.css?raw';
 import prismDark from 'prism-themes/themes/prism-vsc-dark-plus.css?raw';
 import React, { useCallback, useEffect } from 'react';
-import { changeLanguage } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { Link, NavLink, Outlet } from 'react-router-dom';
-import { css, styled } from 'twin.macro';
+import tw, { css, styled } from 'twin.macro';
 import IconPosts from '~icons/ri/article-line';
 import IconProjects from '~icons/ri/function-line';
 import IconGithub from '~icons/ri/github-line';
@@ -24,10 +24,51 @@ const title = import.meta.env.VITE_TITLE;
 const email = import.meta.env.VITE_EMAIL;
 const githubUrl = import.meta.env.VITE_GITHUB_URL;
 
+const Wrapper = styled.div`
+  ${tw`relative pb-16 min-h-screen flex flex-col`}
+`;
+
+const Header = tw.header`h-20 w-full`;
+
+const HeaderCenter = tw.div`mx-auto max-w-screen-lg flex px-8 items-center h-full text-slate-500 font-semibold`;
+
+const TitleLink = styled(Link)`
+  ${tw`text-lg`}
+`;
+
+const Title = tw.span`mx-0.5 text-blue-500`;
+
+const Nav = tw.nav`grid gap-3 lg:gap-6 grid-flow-col ml-auto leading-5`;
+
+const navItemStyle = tw`opacity-60 cursor-pointer hover:(opacity-100 text-blue-500)`;
+
+const NavItem = styled.a`
+  ${navItemStyle}
+`;
+
+const NavLinkItem = styled(NavLink)`
+  ${navItemStyle}
+
+  &.active {
+    ${tw`opacity-100 text-blue-500`}
+  }
+`;
+
+const Divider = tw.div`w-[1px] h-full bg-gray-200 dark:bg-gray-800`;
+
+const Footer = tw.footer`
+  absolute bottom-4 left-0 
+  space-x-2 w-full
+  text-sm text-center text-slate-300
+  select-none
+`;
+
+const FooterCenter = tw.div`mx-auto max-w-screen-lg dark:text-slate-800`;
+
 export default function Main() {
   const { t } = useTranslation();
 
-  const [darkModeEnabled, setDarkModeEnabled] = useDarkMode();
+  const [darkModeEnabled, setDarkModelEnabled] = useDarkMode();
 
   useEffect(() => {
     loadThemeStyles('prism-theme', darkModeEnabled ? prismDark : prismLight);
@@ -35,7 +76,7 @@ export default function Main() {
   }, [darkModeEnabled]);
 
   const onToggleDarkMode = useCallback(() => {
-    setDarkModeEnabled(!darkModeEnabled);
+    setDarkModelEnabled(!darkModeEnabled);
   }, [darkModeEnabled]);
 
   const onToggleLanguage = useCallback(() => {
@@ -45,81 +86,57 @@ export default function Main() {
 
   return (
     <DarkModeValueContext.Provider value={darkModeEnabled}>
-      <div className="relative pb-16 min-h-screen flex flex-col">
-        <header className="h-20 w-full">
-          <div className="mx-auto max-w-screen-lg flex px-8 items-center h-full text-slate-500 font-semibold">
-            <Link className="text-lg" to="/">
+      <Wrapper>
+        <Header>
+          <HeaderCenter>
+            <TitleLink to="/">
               <span>://</span>
-              <span className="mx-0.5 text-blue-500">{title}</span>
-            </Link>
+              <Title>{title}</Title>
+            </TitleLink>
 
-            <nav className="grid gap-3 lg:gap-6 grid-flow-col ml-auto leading-5">
-              <NavLink
-                className="opacity-60 cursor-pointer hover:(opacity-100 text-blue-500) active:(opacity-100 text-blue-500"
-                to="/posts"
-              >
-                <IconPosts className="inline lg:hidden" />
-                <span className="hidden lg:inline">{t('tab.posts')}</span>
-              </NavLink>
+            <Nav>
+              <NavLinkItem to="/posts">
+                <IconPosts tw="inline lg:hidden" />
+                <span tw="hidden lg:inline">{t('tab.posts')}</span>
+              </NavLinkItem>
+              <NavLinkItem to="/snippets">
+                <IconSnippets tw="inline lg:hidden" />
+                <span tw="hidden lg:inline">{t('tab.snippets')}</span>
+              </NavLinkItem>
+              <NavLinkItem to="/projects">
+                <IconProjects tw="inline lg:hidden" />
+                <span tw="hidden lg:inline">{t('tab.projects')}</span>
+              </NavLinkItem>
 
-              <NavLink
-                className="opacity-60 cursor-pointer hover:(opacity-100 text-blue-500) active:(opacity-100 text-blue-500"
-                to="/snippets"
-              >
-                <IconSnippets className="inline lg:hidden" />
-                <span className="hidden lg:inline">{t('tab.snippets')}</span>
-              </NavLink>
+              <Divider />
 
-              <NavLink
-                className="opacity-60 cursor-pointer hover:(opacity-100 text-blue-500) active:(opacity-100 text-blue-500"
-                to="/projects"
-              >
-                <IconProjects className="inline lg:hidden" />
-                <span className="hidden lg:inline">{t('tab.projects')}</span>
-              </NavLink>
-
-              <div className="w-[1px] h-full bg-gray-200 dark:bg-gray-800"></div>
-
-              <a
-                className="opacity-60 cursor-pointer hover:(opacity-100 text-blue-500) active:(opacity-100 text-blue-500"
-                href={`mailto:${email}`}
-              >
+              <NavItem href={`mailto:${email}`}>
                 <IconEmail />
-              </a>
-              <a
-                className="opacity-60 cursor-pointer hover:(opacity-100 text-blue-500) active:(opacity-100 text-blue-500"
-                href={githubUrl}
-                target="_blank"
-              >
+              </NavItem>
+              <NavItem href={githubUrl} target="_blank">
                 <IconGithub />
-              </a>
-              <a
-                className="opacity-60 cursor-pointer hover:(opacity-100 text-blue-500) active:(opacity-100 text-blue-500"
-                onClick={onToggleLanguage}
-              >
+              </NavItem>
+              <NavItem onClick={onToggleLanguage}>
                 <IconLanguage />
-              </a>
-              <a
-                className="opacity-60 cursor-pointer hover:(opacity-100 text-blue-500) active:(opacity-100 text-blue-500"
-                onClick={onToggleDarkMode}
-              >
+              </NavItem>
+              <NavItem onClick={onToggleDarkMode}>
                 {darkModeEnabled ? <IconLight /> : <IconDark />}
-              </a>
-            </nav>
-          </div>
-        </header>
+              </NavItem>
+            </Nav>
+          </HeaderCenter>
+        </Header>
 
         <Outlet />
 
-        <footer className="absolute bottom-4 left-0 space-x-2 w-full text-sm text-center text-slate-300 select-none">
-          <div className="mx-auto max-w-screen-lg dark:text-slate-800">
+        <Footer>
+          <FooterCenter>
             <a tw="hover:text-blue-500" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
               CC BY-NC-SA 4.0
             </a>
-            <span className="ml-2">2024-present © DongWook Lee</span>
-          </div>
-        </footer>
-      </div>
+            <span tw="ml-2">2016-present © varHarrie</span>
+          </FooterCenter>
+        </Footer>
+      </Wrapper>
     </DarkModeValueContext.Provider>
   );
 }

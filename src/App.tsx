@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Outlet, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Outlet, Route, Routes } from 'react-router-dom';
 
+import Main from './views/Main';
 import Home from './views/Home';
 
 const milestones = {
@@ -12,7 +13,11 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Main />}>
+          <Route path="" element={<Home />} />
+          <Route path="posts" element={<Outlet />}></Route>
+          <Route path="snippets" element={<Outlet />}></Route>
+        </Route>
       </Routes>
     </Router>
   );
