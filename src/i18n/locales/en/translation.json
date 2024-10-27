@@ -1,0 +1,21 @@
+{
+    "tab": {
+      "posts": "Posts",
+      "snippets": "Snippets",
+      "projects": "Projects"
+    },
+    "intro": {
+      "title": "👋 Hi! I'm Dong Wook Lee",
+      "description": "A front-end web developer, focuses on React, Next.js, Tailwind CSS, Redux-toolkit, Tanstack Query and other technologies",
+      "link": "Take a Look"
+    },
+    "dateFormat": "MMM dd, yyyy",
+    "comment": {
+      "title": "Comments",
+      "btn": "Click to Comment",
+      "owner": "Author"
+    },
+    "projects": {
+      "title": "Projects"
+    }
+}

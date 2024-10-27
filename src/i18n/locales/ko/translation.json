@@ -1,0 +1,21 @@
+{
+    "tab": {
+      "posts": "포스트",
+      "snippets": "스니펫",
+      "projects": "프로젝트"
+    },
+    "intro": {
+      "title": "👋 안녕하세요! 이동욱입니다.",
+      "description": "React, Next.js, Tailwind CSS, Redux-toolkit, Tanstack Query 및 기타 기술에 집중하는 프론트엔드 웹 개발자입니다",
+      "link": "한번 살펴보세요"
+    },
+    "dateFormat": "yyyy년 MMM dd일",
+    "comment": {
+      "title": "댓글",
+      "btn": "댓글 남기기",
+      "owner": "작성자"
+    },
+    "projects": {
+      "title": "프로젝트"
+    }
+}
