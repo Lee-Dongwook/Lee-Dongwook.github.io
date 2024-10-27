@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 
 import App from './App';
 import GlobalStyle from './styles';
+import './i18n';
 
 document.title = import.meta.env.VITE_APP_TITLE;
 
