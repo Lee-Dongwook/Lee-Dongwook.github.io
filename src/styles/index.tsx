@@ -22,6 +22,10 @@ const customStyles = css`
   *::-webkit-scrollbar-thumb {
     ${tw`bg-slate-200 dark:bg-slate-700`}
   }
+
+  .markdown-body pre {
+    @apply rounded shadow-md border border-gray-200 bg-white dark:bg-slate-800 dark:border-gray-800;
+  }
 `;
 
 export default function GlobalStyle() {
